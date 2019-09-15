@@ -2,21 +2,33 @@ import os
 import sys
 import cv2
 import pickle
+import imutils
+import argparse
 import numpy as np
 import tensorflow as tf
 import utils.facenet as facenet
 import utils.detect_face as detect_face
 from PIL import Image
+from imutils.video import FPS
+from imutils.video import WebcamVideoStream
 
 # Error Logging : FOR DEVELOPMENT ONLY!!
-import traceback
 import logging
+import traceback
+
+# construct the argument parse and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-n", "--num-frames", type=int, default=30,
+                help="# of frames to loop over for FPS test")
+ap.add_argument("-d", "--display", type=int, default=-1,
+                help="Whether or not frames should be displayed")
+args = vars(ap.parse_args())
 
 # Set allow_pickle=True
 np_load_old = np.load
 np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
 
-print('Initializing networks and loading parameters...')
+print('[INFO] Initializing networks and loading parameters...')
 with tf.Graph().as_default():
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.6)
     sess = tf.Session(config=tf.ConfigProto(
@@ -25,7 +37,7 @@ with tf.Graph().as_default():
         pnet, rnet, onet = detect_face.create_mtcnn(sess, './npy')
 
         # Config variables
-        minsize = 20  # minimum size of face
+        minsize = 150  # minimum size of face
         threshold = [0.6, 0.7, 0.7]  # three steps's threshold
         factor = 0.709  # scale factor
         margin = 44
@@ -53,22 +65,25 @@ with tf.Graph().as_default():
         classifier_filename_exp = os.path.expanduser(classifier_filename)
         with open(classifier_filename_exp, 'rb') as infile:
             (model, class_names) = pickle.load(infile)
-            print('Loaded classifier file -> %s' % classifier_filename_exp)
+            print('[INFO] Loaded classifier file -> %s' %
+                  classifier_filename_exp)
 
-        # Define the preview window
-        # cv2.namedWindow("preview")
-
-        # Create a VideoCapture object and read from webcam
-        video_capture = cv2.VideoCapture(0)
+        # created a *threaded *video stream, allow the camera senor to warmup,
+        # and start the FPS counter
+        print("[INFO] sampling THREADED frames from webcam...")
+        video_capture = WebcamVideoStream(src=0).start()
 
         # Check if video stream opened successfully
-        if (video_capture.isOpened() == False):
-            print("Error opening camera video stream")
+        if (video_capture == False):
+            print("[ERROR] There was some problem opening camera video stream")
+            sys.exit(1)
 
-        print('Start recognition...')
-        while (video_capture.isOpened()):
-            # Capture frame-by-frame
-            ret, frame = video_capture.read()
+        # loop over some frames...this time using the threaded stream
+        while True:
+            # Grab the frame
+            frame = video_capture.read()
+            # Resize the frame
+            frame = imutils.resize(frame, width=400)
 
             find_results = []
 
@@ -100,7 +115,7 @@ with tf.Graph().as_default():
 
                     # inner exception
                     if bb[i][0] <= 0 or bb[i][1] <= 0 or bb[i][2] >= len(frame[0]) or bb[i][3] >= len(frame[1]):
-                        print('face is inner of range!')
+                        print('[ERROR] face is inner of range!')
                         continue
 
                     try:
@@ -141,19 +156,21 @@ with tf.Graph().as_default():
                     # print(faceIds)
                     for faceId in faceIds:
                         # print(faceId)
-                        if faceIds[best_class_indices[0]] == faceId:
+                        if faceIds[best_class_indices[0]] == faceId and best_class_probabilities[0] > 0.7:
                             result_names = faceIds[best_class_indices[0]]
                             cv2.putText(frame, result_names, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL,
                                         1, (0, 0, 255), thickness=1, lineType=2)
 
             else:
-                print('Unable to align')
+                print('[INFO] No detected face in the threshold vicinity!')
 
+            # Show the frame
             cv2.imshow('Video', frame)
 
+            # Quit if on pressing 'q'
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                print('Stopping...')
+                print('[INFO] Stopping...')
                 break
 
-        video_capture.release()
+        video_capture.stop()
         cv2.destroyAllWindows()
