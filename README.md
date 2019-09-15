@@ -25,7 +25,6 @@ This project needs the following packages to be installed to run.
 
 I strongly suggest to make a virtual environment and then run this project. I've provided the simplest instructions for getting the project up and running on a linux or windows machine.
 
-```
 1. Make sure you have git installed. Go to [https://git-scm.com/](https://git-scm.com/) to install it.
 2. Open the terminal.
 3. Type in "git clone https://github.com/dotslash21/realtime_face_identification.git" to clone this repository.
@@ -34,7 +33,6 @@ I strongly suggest to make a virtual environment and then run this project. I've
 6. Run the align_face.py file using "python align_face.py" command.
 7. Run the train_classifier.py using "python train_classifier.py" command.
 8. Finally run the realtime_faceID_multithread.py file same way as above to start the identification.
-```
 
 ## Authors
 
