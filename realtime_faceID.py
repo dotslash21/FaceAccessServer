@@ -8,6 +8,10 @@ import utils.facenet as facenet
 import utils.detect_face as detect_face
 from PIL import Image
 
+# Error Logging : FOR DEVELOPMENT ONLY!!
+import traceback
+import logging
+
 # Set allow_pickle=True
 np_load_old = np.load
 np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
@@ -56,6 +60,7 @@ with tf.Graph().as_default():
 
         # Create a VideoCapture object and read from webcam
         video_capture = cv2.VideoCapture(0)
+        video_capture.set(cv2.cv.CV_CAP_PROP_FPS, 30)
 
         # Check if video stream opened successfully
         if (video_capture.isOpened() == False):
@@ -75,7 +80,7 @@ with tf.Graph().as_default():
             bounding_boxes, _ = detect_face.detect_face(
                 frame, minsize, pnet, rnet, onet, threshold, factor)
             nrof_faces = bounding_boxes.shape[0]
-            print('Number of faces detected: %d' % nrof_faces)
+            # print('Number of faces detected: %d' % nrof_faces)
 
             if nrof_faces > 0:
                 det = bounding_boxes[:, 0:4]
@@ -95,31 +100,35 @@ with tf.Graph().as_default():
                     bb[i][3] = det[i][3]
 
                     # inner exception
-                    if bb[i][0] <= 0 or bb[i][1] <= 0 or bb[i][2] >= len(frame[0]) or bb[i][3] >= len(frame):
+                    if bb[i][0] <= 0 or bb[i][1] <= 0 or bb[i][2] >= len(frame[0]) or bb[i][3] >= len(frame[1]):
                         print('face is inner of range!')
                         continue
 
-                    cropped.append(
-                        frame[bb[i][1]:bb[i][3], bb[i][0]:bb[i][2], :])
-                    cropped[i] = facenet.flip(cropped[i], False)
-                    scaled.append(np.array(Image.fromarray(cropped[i]).resize(
-                        (image_size, image_size), resample=Image.BILINEAR)))
-                    scaled[i] = cv2.resize(scaled[i], (input_image_size, input_image_size),
-                                           interpolation=cv2.INTER_CUBIC)
-                    scaled[i] = facenet.prewhiten(scaled[i])
-                    scaled_reshape.append(
-                        scaled[i].reshape(-1, input_image_size, input_image_size, 3))
-                    feed_dict = {
-                        images_placeholder: scaled_reshape[i], phase_train_placeholder: False}
-                    emb_array[0, :] = sess.run(
-                        embeddings, feed_dict=feed_dict)
-                    predictions = model.predict_proba(emb_array)
-                    print(predictions)
-                    best_class_indices = np.argmax(predictions, axis=1)
-                    print(best_class_indices)
-                    best_class_probabilities = predictions[np.arange(
-                        len(best_class_indices)), best_class_indices]
-                    print(best_class_probabilities)
+                    try:
+                        cropped.append(
+                            frame[bb[i][1]:bb[i][3], bb[i][0]:bb[i][2], :])
+                        cropped[i] = facenet.flip(cropped[i], False)
+                        scaled.append(np.array(Image.fromarray(cropped[i]).resize(
+                            (image_size, image_size), resample=Image.BILINEAR)))
+                        scaled[i] = cv2.resize(scaled[i], (input_image_size, input_image_size),
+                                               interpolation=cv2.INTER_CUBIC)
+                        scaled[i] = facenet.prewhiten(scaled[i])
+                        scaled_reshape.append(
+                            scaled[i].reshape(-1, input_image_size, input_image_size, 3))
+                        feed_dict = {
+                            images_placeholder: scaled_reshape[i], phase_train_placeholder: False}
+                        emb_array[0, :] = sess.run(
+                            embeddings, feed_dict=feed_dict)
+                        predictions = model.predict_proba(emb_array)
+                        # print(predictions)
+                        best_class_indices = np.argmax(predictions, axis=1)
+                        # print(best_class_indices)
+                        best_class_probabilities = predictions[np.arange(
+                            len(best_class_indices)), best_class_indices]
+                        # print(best_class_probabilities)
+                    except Exception as e:
+                        # Error Logging : FOR DEVELOPMENT ONLY!!!
+                        logging.error(traceback.format_exc())
 
                     # boxing face
                     cv2.rectangle(
@@ -128,11 +137,11 @@ with tf.Graph().as_default():
                     # plot result idx under box
                     text_x = bb[i][0]
                     text_y = bb[i][3] + 20
-                    print('result: ', best_class_indices[0])
-                    print(best_class_indices)
-                    print(faceIds)
+                    # print('result: ', best_class_indices[0])
+                    # print(best_class_indices)
+                    # print(faceIds)
                     for faceId in faceIds:
-                        print(faceId)
+                        # print(faceId)
                         if faceIds[best_class_indices[0]] == faceId:
                             result_names = faceIds[best_class_indices[0]]
                             cv2.putText(frame, result_names, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL,
