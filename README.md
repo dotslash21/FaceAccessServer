@@ -38,6 +38,10 @@ I strongly suggest to make a virtual environment and then run this project. I've
 
 * **Arunangshu Biswas**
 
+## Contributors
+
+* **Arunangshu Biswas**
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
