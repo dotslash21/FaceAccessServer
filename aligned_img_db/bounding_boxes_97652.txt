@@ -1,0 +1,8 @@
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_7.png 302 252 667 731
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_6.png 88 102 354 447
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_0.png 174 95 438 450
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_4.png 178 114 442 443
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_2.png 352 233 727 704
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_3.png 578 98 687 233
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_5.png 116 294 541 867
+./aligned_img_db/Arkadip_Bhattacharya/Arkadip_Bhattacharya_1.png 168 324 583 856
