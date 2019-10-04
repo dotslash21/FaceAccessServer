@@ -36,11 +36,11 @@ I strongly suggest to make a virtual environment and then run this project. I've
 
 ## Authors
 
-* **Arunangshu Biswas**
+* **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
 
 ## Contributors
 
-* **Arunangshu Biswas**
+* **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
 
 ## License
 
