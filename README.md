@@ -11,17 +11,19 @@ Follow the instructions below to setup and run this project on your system.
 This project needs the following packages to be installed to run.
 
 ```
-1) six
-2) imutils
-3) tensorflow
-4) numpy
-5) scipy
-6) Pillow
-7) imageio
-8) scikit_learn
+1) scipy
+2) Flask_SQLAlchemy
+3) numpy
+4) Flask
+5) tensorflow
+6) six
+7) imutils
+8) Pillow
+9) imageio
+10) scikit_learn
 ```
 
-### Installing
+### Installing and Running
 
 I strongly suggest to make a virtual environment and then run this project. I've provided the simplest instructions for getting the project up and running on a linux or windows machine.
 
@@ -32,15 +34,15 @@ I strongly suggest to make a virtual environment and then run this project. I've
 5. Put your labelled images in img_db folder.
 6. Run the align_face.py file using "python align_face.py" command.
 7. Run the train_classifier.py using "python train_classifier.py" command.
-8. Finally run the realtime_faceID_multithread.py file same way as above to start the identification.
+8. Finally run the app.py with the required arguments. (e.g.- python app.py -i localhost -o 8080)
 
 ## Authors
 
-* **Arunangshu Biswas**
+- **Arunangshu Biswas**
 
 ## Contributors
 
-* **Arunangshu Biswas**
+- **Arunangshu Biswas**
 
 ## License
 
@@ -48,4 +50,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* David Sandberg for his [FaceNet](https://github.com/davidsandberg/facenet) implementation.
+- David Sandberg for his [FaceNet](https://github.com/davidsandberg/facenet) implementation.
