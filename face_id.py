@@ -45,6 +45,9 @@ class FaceIdentifier:
                 # get the face IDs form the db
                 print('[INFO] Loading face Ids from Database...', end='')
                 self.faceIds = sorted(os.listdir('./aligned_img_db/'))
+                for faceId in self.faceIds:
+                    if(faceId[:15] == "bounding_boxes_"):
+                        self.faceIds.remove(faceId)
                 print('Done!')
 
                 # Load the facenet model and weights from file
