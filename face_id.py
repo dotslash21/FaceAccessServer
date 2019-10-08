@@ -44,7 +44,7 @@ class FaceIdentifier:
 
                 # get the face IDs form the db
                 print('[INFO] Loading face Ids from Database...', end='')
-                self.faceIds = sorted(os.listdir('./aligned_img_db/'))
+                self.faceIds = self.get_subdirs('./aligned_img_db/')
                 print('Done!')
 
                 # Load the facenet model and weights from file
@@ -155,3 +155,9 @@ class FaceIdentifier:
         else:
             print('[INFO] No detected face in the threshold vicinity!')
             return 5
+
+    # Function for listing ONLY subdirectories in a directory passed as a parameter
+    # Returns a sorted list containing the existing subdirectories in a specific directory
+    def get_subdirs(self, dir):
+        return sorted([sub_dir for sub_dir in os.listdir(dir)
+                if os.path.isdir(os.path.join(dir, sub_dir))])
