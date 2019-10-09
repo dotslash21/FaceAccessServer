@@ -36,14 +36,6 @@ I strongly suggest to make a virtual environment and then run this project. I've
 7. Run the train_classifier.py using "python train_classifier.py" command.
 8. Finally run the app.py with the required arguments. (e.g.- python app.py -i localhost -o 8080)
 
-## Authors
-
-- **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
-
-## Contributors
-
-- **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
