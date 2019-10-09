@@ -1,4 +1,4 @@
-# Realtime Face Identification
+# FaceAccess - Face Recognition based Access Management System
 
 As the name suggests this project recognizes faces from a webcam feed. This project is part of a much bigger project to implement a robust face recognition based hassle free entry and exit system.
 
