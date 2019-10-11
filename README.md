@@ -1,4 +1,4 @@
-# Realtime Face Identification
+# FaceAccess - Face Recognition based Access Management System
 
 As the name suggests this project recognizes faces from a webcam feed. This project is part of a much bigger project to implement a robust face recognition based hassle free entry and exit system.
 
@@ -35,14 +35,6 @@ I strongly suggest to make a virtual environment and then run this project. I've
 6. Run the align_face.py file using "python align_face.py" command.
 7. Run the train_classifier.py using "python train_classifier.py" command.
 8. Finally run the app.py with the required arguments. (e.g.- python app.py -i localhost -o 8080)
-
-## Authors
-
-- **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
-
-## Contributors
-
-- **Arunangshu Biswas** [:link:](https://github.com/dotslash21/)
 
 ## License
 
