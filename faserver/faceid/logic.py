@@ -4,6 +4,7 @@ import time
 import datetime
 import threading
 from .. import app
+import imutils
 from imutils.video import VideoStream
 from ..utils.face_id import FaceIdentifier
 
@@ -69,13 +70,7 @@ def face_recognition():
         # Grab the frame
         frame = vs.read()
         # Resize the frame
-        # frame = imutils.resize(frame, width=400)
-
-        # grab the current timestamp and draw it on the frame
-        timestamp = datetime.datetime.now()
-        cv2.putText(frame, timestamp.strftime(
-            "%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
+        frame = imutils.resize(frame, width=350)
 
         # Perform face identification
         id_result = face_id.identify(frame)
