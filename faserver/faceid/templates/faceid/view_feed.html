@@ -1,0 +1,22 @@
+{% extends 'faceid/base.html' %} {% block head %}{% endblock %} {% block body %}
+<main class="container">
+  <h2>Face Acess Camera Feed</h2>
+  <hr />
+  <div class="row">
+    <div class="col l8 m12 s12">
+      <img src="{{ url_for('faceid.video_feed') }}" />
+    </div>
+    <div class="col l4 m12 s12">
+      {% if detection_result %}
+      <div>
+        <h5>Detected Person</h5>
+        {{ detection_result["name"] }}
+        <br />
+        <h5>Detection Probability</h5>
+        {{ detection_result["probability"] }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock %}

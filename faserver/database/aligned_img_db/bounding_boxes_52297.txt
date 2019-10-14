@@ -1,0 +1,9 @@
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_3.png 262 551 668 1094
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_5.png 229 484 420 737
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_4.png 236 173 767 911
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_6.png 525 55 786 395
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_8.png 121 113 257 284
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_7.png 183 127 339 325
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_1.png 570 282 807 540
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_0.png 249 233 591 713
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/Anshumali_Shaw/Anshumali_Shaw_2.png 187 355 529 817
