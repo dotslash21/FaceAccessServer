@@ -1,0 +1,9 @@
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_3.png 337 766 1228 1932
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_8.png 139 549 1189 1955
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_6.png 327 481 1254 1726
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_2.png 419 709 1297 1881
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_5.png 302 696 1011 1641
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_0.png 193 576 1136 1793
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_7.png 449 815 1191 1843
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_1.png 423 758 1089 1665
+/home/dotslash21/Desktop/bengalathon/faserver/faserver/database/aligned_img_db/A_Biswas/A_Biswas_4.png 245 734 1091 1892

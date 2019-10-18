@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %} {% block head %}{% endblock %} {% block body %}
+<main class="container">
+  <h2>Delete User</h2>
+  <br>
+  <div class="row">
+    {% for user in users %}
+    <div class="col s12">
+      <div class="card horizontal">
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>Name: {{ user.first_name + " " + user.last_name }}</p>
+            <p>Registration Date: {{ user.date_registered.date() }}</p>
+          </div>
+          <div class="card-action">
+            <form action="/admin/delete-user" method="POST">
+              <input  type="hidden" name="user_id" value="{{ user.id }}">
+              <button type="submit" class="btn red lighten-1 right">DELETE</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

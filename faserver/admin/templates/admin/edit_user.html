@@ -1,0 +1,51 @@
+{% extends 'admin/base.html' %} {% block head %}{% endblock %} {% block body %}
+<main class="container">
+    <h2>Edit User</h2>
+    <hr>
+    <div class="row">
+        {% for user in users %}
+        <div class="col s12">
+            <form action="/admin/edit-user" method="POST" enctype="multipart/form-data">
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input id="first_name" name="first_name" type="text" class="validate"
+                                        value="{{ user.first_name }}">
+                                    <label for="first_name">First Name</label>
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <input id="last_name" name="last_name" type="text" class="validate"
+                                        value="{{ user.last_name }}">
+                                    <label for="last_name">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="file-field input-field">
+                                    <div class="btn grey darken-4">
+                                        <span>File</span>
+                                        <input name="images" type="file" multiple />
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text"
+                                            placeholder="Upload one or more photos" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <input type="hidden" name="old_first_name" value="{{ user.first_name }}">
+                            <input type="hidden" name="old_last_name" value="{{ user.last_name }}">
+                            <button type="submit" class="btn orange lighten-1 right">SAVE CHANGES</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

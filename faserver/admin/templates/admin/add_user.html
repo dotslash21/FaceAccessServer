@@ -1,0 +1,78 @@
+{% extends 'admin/base.html' %} {% block head %}
+<script>
+  $(function() {
+    $("input[type = 'submit']").click(function() {
+      var $fileUpload = $("input[type='file']");
+      if (parseInt($fileUpload.get(0).files.length) > 10) {
+        alert("You are only allowed to upload a maximum of 10 photos");
+      }
+    });
+  });
+</script>
+{% endblock %} {% block body %}
+<main class="container">
+  <div class="card-panel">
+    <h2>Add User</h2>
+    <hr />
+    <form action="/admin/add-user" method="POST" enctype="multipart/form-data">
+      <div class="row">
+        <!--Name-->
+        <div class="col s6">
+          <div class="row">
+            <div class="input-field col s6">
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                class="validate"
+              />
+              <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                class="validate"
+              />
+              <label for="last_name">Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="file-field input-field">
+              <div class="btn grey darken-4">
+                <span>File</span>
+                <input name="images" type="file" accept="image/*" multiple capture />
+              </div>
+              <div class="file-path-wrapper">
+                <input
+                  class="file-path validate"
+                  type="text"
+                  placeholder="Upload one or more photos"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s6">
+          <p class="grey-text text-darken-3">
+            Upload a minimum of 5 front facing potrait photos in different
+            facial postures to increase the chances of accurate identification.
+            Maximum files allowed is 10 for performance issues in running the
+            prototype.
+          </p>
+        </div>
+      </div>
+
+      <input class="btn btn-large red lighten-1" type="reset" value="RESET" />
+      <input
+        class="btn btn-large green lighten-1"
+        type="submit"
+        value="SUBMIT"
+      />
+    </form>
+  </div>
+</main>
+
+{% endblock %}
