@@ -1,7 +1,7 @@
 import argparse
 import threading
 from faserver import app
-from faserver.faceid.logic import face_recognition
+from faserver.rt_faceauth.logic import face_recognition
 
 if __name__ == "__main__":
     # construct the argument parser and parse command line arguments

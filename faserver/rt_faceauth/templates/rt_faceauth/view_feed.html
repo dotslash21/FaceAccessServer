@@ -1,10 +1,10 @@
-{% extends 'faceid/base.html' %} {% block head %}{% endblock %} {% block body %}
+{% extends 'rt_faceauth/base.html' %} {% block head %}{% endblock %} {% block body %}
 <main class="container">
   <h2>Face Acess Camera Feed</h2>
   <hr />
   <div class="row">
     <div class="col l8 m12 s12">
-      <img src="{{ url_for('faceid.video_feed') }}" />
+      <img src="{{ url_for('rt_faceauth.video_feed') }}" />
     </div>
     <div class="col l4 m12 s12">
       {% if detection_result %}
