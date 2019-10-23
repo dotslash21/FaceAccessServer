@@ -21,7 +21,7 @@ align_img_db = AlignImgDB(
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_IMG_EXTENSIONS']
 
 def delete_from_imgdb(foldername):
     directory1 = os.path.join(app.config['IMG_DB'], foldername)
