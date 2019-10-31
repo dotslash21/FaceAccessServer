@@ -26,21 +26,21 @@ class AlignImgDB:
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
 
-
         print('Creating networks and loading parameters')
         with tf.Graph().as_default():
             gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.5)
             sess = tf.Session(config=tf.ConfigProto(
                 gpu_options=gpu_options, log_device_placement=False))
             with sess.as_default():
-                self.pnet, self.rnet, self.onet = detect_face.create_mtcnn(sess, mtcnn_model_dir)
-
+                self.pnet, self.rnet, self.onet = detect_face.create_mtcnn(
+                    sess, mtcnn_model_dir)
 
     def perform_alignment(self):
         # Load the dataset
         self.dataset = facenet.get_dataset(self.datadir)
 
-        # Add a random key to the filename to allow alignment using multiple processes
+        # Add a random key to the filename to allow alignment using multiple
+        # processes
         random_key = np.random.randint(0, high=99999)
         bounding_boxes_filename = os.path.join(
             self.output_dir, 'bounding_boxes_%05d.txt' % random_key)
@@ -55,8 +55,10 @@ class AlignImgDB:
                     os.makedirs(output_class_dir)
                 for image_path in cls.image_paths:
                     nrof_images_total += 1
-                    filename = os.path.splitext(os.path.split(image_path)[1])[0]
-                    output_filename = os.path.join(output_class_dir, filename + '.png')
+                    filename = os.path.splitext(
+                        os.path.split(image_path)[1])[0]
+                    output_filename = os.path.join(
+                        output_class_dir, filename + '.png')
                     print("Source Image: %s" % image_path)
                     if not os.path.exists(output_filename):
                         try:
@@ -67,7 +69,9 @@ class AlignImgDB:
                             print(errorMessage)
                         else:
                             if img.ndim < 2:
-                                print('Error! Unable to align "%s"' % image_path)
+                                print(
+                                    'Error! Unable to align "%s"' %
+                                    image_path)
                                 text_file.write('%s\n' % (output_filename))
                                 continue
                             if img.ndim == 2:
@@ -79,7 +83,9 @@ class AlignImgDB:
                             bounding_boxes, _ = detect_face.detect_face(
                                 img, self.minsize, self.pnet, self.rnet, self.onet, self.threshold, self.factor)
                             nrof_faces = bounding_boxes.shape[0]
-                            print('Number of Detected Face(s): %d' % nrof_faces)
+                            print(
+                                'Number of Detected Face(s): %d' %
+                                nrof_faces)
                             if nrof_faces > 0:
                                 det = bounding_boxes[:, 0:4]
                                 img_size = np.asarray(img.shape)[0:2]
@@ -88,7 +94,7 @@ class AlignImgDB:
                                         det[:, 2] - det[:, 0]) * (det[:, 3] - det[:, 1])
                                     img_center = img_size / 2
                                     offsets = np.vstack([(det[:, 0] + det[:, 2]) / 2 - img_center[1],
-                                                        (det[:, 1] + det[:, 3]) / 2 - img_center[0]])
+                                                         (det[:, 1] + det[:, 3]) / 2 - img_center[0]])
                                     offset_dist_squared = np.sum(
                                         np.power(offsets, 2.0), 0)
                                     # some extra weight on the centering
@@ -104,21 +110,29 @@ class AlignImgDB:
                                 bb_temp[3] = det[3]
 
                                 try:
-                                    cropped_temp = img[bb_temp[1]:bb_temp[3], bb_temp[0]:bb_temp[2], :]
+                                    cropped_temp = img[bb_temp[1]                                                       :bb_temp[3], bb_temp[0]:bb_temp[2], :]
                                     # scaled_temp = misc.imresize(
-                                    #     cropped_temp, (image_size, image_size), interp='bilinear')
-                                    scaled_temp = np.array(Image.fromarray(cropped_temp).resize(
-                                        (self.image_size, self.image_size), resample=Image.BILINEAR))
+                                    # cropped_temp, (image_size, image_size),
+                                    # interp='bilinear')
+                                    scaled_temp = np.array(
+                                        Image.fromarray(cropped_temp).resize(
+                                            (self.image_size, self.image_size), resample=Image.BILINEAR))
 
                                     nrof_successfully_aligned += 1
-                                    imageio.imsave(output_filename, scaled_temp)
-                                    text_file.write('%s %d %d %d %d\n' % (
-                                        output_filename, bb_temp[0], bb_temp[1], bb_temp[2], bb_temp[3]))
+                                    imageio.imsave(
+                                        output_filename, scaled_temp)
+                                    text_file.write(
+                                        '%s %d %d %d %d\n' %
+                                        (output_filename, bb_temp[0], bb_temp[1], bb_temp[2], bb_temp[3]))
                                 except Exception as e:
                                     os.remove(image_path)
                             else:
-                                print('Error! Unable to align "%s"' % image_path)
+                                print(
+                                    'Error! Unable to align "%s"' %
+                                    image_path)
                                 text_file.write('%s\n' % (output_filename))
 
         print('Total number of images: %d' % nrof_images_total)
-        print('Number of successfully aligned images: %d' % nrof_successfully_aligned)
+        print(
+            'Number of successfully aligned images: %d' %
+            nrof_successfully_aligned)

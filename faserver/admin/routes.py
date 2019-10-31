@@ -21,7 +21,8 @@ def add_user():
 
         try:
             if len(uploaded_files) != 10:
-                raise Exception('[ERROR] Correct number of files not received!')
+                raise Exception(
+                    '[ERROR] Correct number of files not received!')
 
             add_user_entry(first_name, last_name)
 
@@ -31,7 +32,7 @@ def add_user():
             retrain_svc()
 
             return redirect('/admin/add-user')
-        except:
+        except BaseException:
             return '[ERROR] There was a problem adding that user!'
     else:
         return render_template('admin/add_user.html')
@@ -46,10 +47,11 @@ def edit_user():
         old_first_name = request.form['old_first_name']
         old_last_name = request.form['old_last_name']
         uploaded_files = request.files.getlist("images")
-        
+
         try:
             if len(uploaded_files) != 10:
-                raise Exception('[ERROR] Correct number of files not received!')
+                raise Exception(
+                    '[ERROR] Correct number of files not received!')
 
             edit_user_entry(id, first_name, last_name)
 
@@ -62,7 +64,7 @@ def edit_user():
             retrain_svc()
 
             return redirect('/admin/edit-user')
-        except:
+        except BaseException:
             return '[ERROR] There was a problem editing that user!'
     else:
         users = User.query.order_by(User.date_registered).all()
@@ -85,7 +87,7 @@ def delete_user():
             retrain_svc()
 
             return redirect('/admin/delete-user')
-        except:
+        except BaseException:
             return '[ERROR] There was a problem deleting that user!'
     else:
         users = User.query.order_by(User.date_registered).all()

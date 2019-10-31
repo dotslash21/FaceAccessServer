@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 
 mod = Blueprint("faceauth", __name__, template_folder="templates")
 
+
 @mod.route("/camera-register", methods=['POST'])
 def camera_register():
     if request.method == 'POST':
@@ -15,12 +16,10 @@ def camera_register():
 
             response_data = {
                 'message': "Camera registered succesfully!",
-                'data': {
-                    'token': camera_token
-                }
+                'token': camera_token
             }
             return jsonify(response_data)
-        except:
+        except BaseException:
             response_data = {
                 'message': "There was a problem registering the camera"
             }

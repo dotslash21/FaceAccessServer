@@ -11,12 +11,13 @@ def getToken(string):
 
 def add_camera_entry(camera_name, camera_serial_num, camera_token):
     try:
-        camera = Camera(camera_name=camera_name, 
+        camera = Camera(camera_name=camera_name,
                         camera_serial_num=camera_serial_num,
                         camera_token=camera_token)
         db.session.add(camera)
         db.session.commit()
 
         return 0
-    except:
-        raise Exception('[ERROR] Problem encountered while adding the camera entry to database!')
+    except BaseException:
+        raise Exception(
+            '[ERROR] Problem encountered while adding the camera entry to database!')

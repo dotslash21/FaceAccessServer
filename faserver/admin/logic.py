@@ -16,12 +16,14 @@ train_svc = TrainSVC(
 align_img_db = AlignImgDB(
     app.config['IMG_DB'],
     app.config['ALIGNED_IMG_DB'],
-    app.config['MTCNN_MODEL_DIR']    
+    app.config['MTCNN_MODEL_DIR']
 )
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_IMG_EXTENSIONS']
+    return '.' in filename and filename.rsplit(
+        '.', 1)[1].lower() in app.config['ALLOWED_IMG_EXTENSIONS']
+
 
 def delete_from_imgdb(foldername):
     directory1 = os.path.join(app.config['IMG_DB'], foldername)
@@ -51,8 +53,9 @@ def add_user_entry(first_name, last_name):
         db.session.commit()
 
         return 0
-    except:
-        raise Exception('[ERROR] Problem encountered while adding the user entry to database!')
+    except BaseException:
+        raise Exception(
+            '[ERROR] Problem encountered while adding the user entry to database!')
 
 
 def edit_user_entry(id, first_name, last_name):
@@ -63,8 +66,9 @@ def edit_user_entry(id, first_name, last_name):
         db.session.commit()
 
         return 0
-    except:
-        raise Exception('[ERROR] Problem encountered while editing the user entry in database!')
+    except BaseException:
+        raise Exception(
+            '[ERROR] Problem encountered while editing the user entry in database!')
 
 
 def delete_user_entry(user):
@@ -73,8 +77,9 @@ def delete_user_entry(user):
         db.session.commit()
 
         return 0
-    except:
-        raise Exception('[ERROR] Problem encountered while deleting the user entry from database!')
+    except BaseException:
+        raise Exception(
+            '[ERROR] Problem encountered while deleting the user entry from database!')
 
 
 def retrain_svc():

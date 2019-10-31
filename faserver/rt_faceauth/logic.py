@@ -1,7 +1,5 @@
-import sys
 import cv2
 import time
-import datetime
 import threading
 from .. import app
 import imutils
@@ -75,7 +73,7 @@ def face_recognition():
         # Perform face identification
         id_result = face_id.identify(frame)
         # Catch any errors in identification
-        if type(id_result) != type(int()):
+        if not isinstance(id_result, type(int())):
             # Get the detection results and bounding box
             (faceID, bounding_box, detection_probability) = id_result
             # Draw the bounding box
@@ -84,8 +82,18 @@ def face_recognition():
             # Draw the faceId below bounding box
             text_x = bounding_box[0][0]
             text_y = bounding_box[0][3] + 20
-            cv2.putText(frame, faceID, (text_x, text_y),
-                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), thickness=1, lineType=2)
+            cv2.putText(
+                frame,
+                faceID,
+                (text_x,
+                 text_y),
+                cv2.FONT_HERSHEY_COMPLEX_SMALL,
+                1,
+                (0,
+                 0,
+                 255),
+                thickness=1,
+                lineType=2)
             # Set the detection result variable
             detection_result = {'name': faceID,
                                 'probability': detection_probability}

@@ -13,7 +13,12 @@ from ..utils import detect_face
 
 
 class FaceIdentifier:
-    def __init__(self, datadir, mtcnn_model_dir, facenet_model_path, svc_model_path):
+    def __init__(
+            self,
+            datadir,
+            mtcnn_model_dir,
+            facenet_model_path,
+            svc_model_path):
         print('[INFO] Initializing networks and loading parameters...')
 
         with tf.Graph().as_default():
@@ -25,7 +30,9 @@ class FaceIdentifier:
                     self.sess, mtcnn_model_dir)
 
                 # Load dev variables
-                print('[DEBUG] Loading development environment variables... ', end='')
+                print(
+                    '[DEBUG] Loading development environment variables... ',
+                    end='')
                 self.datadir = datadir
                 self.modeldir = facenet_model_path
                 self.svc_classifier_filename = svc_model_path
@@ -59,14 +66,14 @@ class FaceIdentifier:
                 # Load the trained SVM Classifier from file
                 self.load_svc()
 
-
     # Function for listing ONLY subdirectories in a directory passed as a parameter
-    # Returns a sorted list containing the existing subdirectories in a specific directory
+    # Returns a sorted list containing the existing subdirectories in a
+    # specific directory
+
     def get_subdirs(self, dir):
         return sorted([sub_dir for sub_dir in os.listdir(dir)
-                if os.path.isdir(os.path.join(dir, sub_dir))])
+                       if os.path.isdir(os.path.join(dir, sub_dir))])
 
-    
     def load_labels(self):
         print('[INFO] Loading face Ids from Database...', end='')
         self.faceIds = self.get_subdirs(self.datadir)
@@ -76,12 +83,11 @@ class FaceIdentifier:
         self.load_labels()
 
         classifier_filename_exp = os.path.expanduser(
-                    self.svc_classifier_filename)
+            self.svc_classifier_filename)
         with open(classifier_filename_exp, 'rb') as infile:
             (self.model, self.class_names) = pickle.load(infile)
             print('[INFO] Loaded SVC classifier file -> %s' %
-                    classifier_filename_exp)
-
+                  classifier_filename_exp)
 
     # Function for performing face identification
     # Return an object containing:-
@@ -124,7 +130,8 @@ class FaceIdentifier:
             emb_array = np.zeros((1, self.embedding_size))
 
             # Bounding box out of frame size range exception
-            if bb[0][0] <= 0 or bb[0][1] <= 0 or bb[0][2] >= len(frame[0]) or bb[0][3] >= len(frame[1]):
+            if bb[0][0] <= 0 or bb[0][1] <= 0 or bb[0][2] >= len(
+                    frame[0]) or bb[0][3] >= len(frame[1]):
                 print('[ERROR] Bounding Box out of frame size range!')
                 return 2
 
@@ -132,10 +139,16 @@ class FaceIdentifier:
                 cropped = frame[bb[0][1]:bb[0][3], bb[0][0]:bb[0][2], :]
                 cropped = facenet.flip(cropped, False)
 
-                scaled = np.array(Image.fromarray(cropped).resize(
-                    (self.image_size, self.image_size), resample=Image.BILINEAR))
+                scaled = np.array(
+                    Image.fromarray(cropped).resize(
+                        (self.image_size,
+                         self.image_size),
+                        resample=Image.BILINEAR))
                 scaled = cv2.resize(
-                    scaled, (self.input_image_size, self.input_image_size), interpolation=cv2.INTER_CUBIC)
+                    scaled,
+                    (self.input_image_size,
+                     self.input_image_size),
+                    interpolation=cv2.INTER_CUBIC)
                 scaled = facenet.prewhiten(scaled)
 
                 scaled_reshape = scaled.reshape(
@@ -162,7 +175,8 @@ class FaceIdentifier:
                 return 3
 
             if best_class_probabilities[0] > 0.7:
-                return (self.faceIds[best_class_indices[0]], bb, best_class_probabilities[0])
+                return (self.faceIds[best_class_indices[0]],
+                        bb, best_class_probabilities[0])
             else:
                 print('[AUTH_ERROR] ACCESS DENIED!')
                 return 4

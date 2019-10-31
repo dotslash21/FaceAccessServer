@@ -4,9 +4,11 @@ from .logic import generate
 
 mod = Blueprint("rt_faceauth", __name__, template_folder="templates")
 
+
 @mod.route("/view-feed")
 def index():
     return render_template("rt_faceauth/view_feed.html")
+
 
 @mod.route("/video_feed")
 def video_feed():
