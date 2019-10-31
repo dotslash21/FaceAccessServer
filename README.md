@@ -1,3 +1,9 @@
+![](https://github.com/dotslash21/FaceAccess/workflows/Python%20application/badge.svg?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/issues)
+[![GitHub forks](https://img.shields.io/github/forks/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/network)
+[![GitHub stars](https://img.shields.io/github/stars/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/stargazers)
+[![GitHub license](https://img.shields.io/github/license/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/blob/master/LICENSE)
+
 # FaceAccess - Face Recognition based Access Management System
 
 As the name suggests this project recognizes faces from a webcam feed. This project is part of a much bigger project to implement a robust face recognition based hassle free entry and exit system.
