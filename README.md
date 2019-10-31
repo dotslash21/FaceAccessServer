@@ -1,4 +1,4 @@
-
+![](https://github.com/dotslash21/FaceAccess/workflows/Python%20application/badge.svg?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotslash21/FaceAccess)](https://github.com/dotslash21/FaceAccess/stargazers)
