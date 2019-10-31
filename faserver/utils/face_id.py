@@ -40,7 +40,7 @@ class FaceIdentifier:
 
                 # Config variables
                 print('[INFO] Initializing config parameters... ', end='')
-                self.minsize = 150  # minimum size of face
+                self.minsize = 60  # minimum size of face
                 self.threshold = [0.6, 0.7, 0.7]  # three steps's threshold
                 self.factor = 0.709  # scale factor
                 self.margin = 44
