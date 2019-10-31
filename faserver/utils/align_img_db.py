@@ -110,13 +110,12 @@ class AlignImgDB:
                                 bb_temp[3] = det[3]
 
                                 try:
-                                    cropped_temp = img[bb_temp[1]                                                       :bb_temp[3], bb_temp[0]:bb_temp[2], :]
+                                    cropped_temp = img[bb_temp[1]:bb_temp[3], bb_temp[0]:bb_temp[2], :]
                                     # scaled_temp = misc.imresize(
                                     # cropped_temp, (image_size, image_size),
                                     # interp='bilinear')
-                                    scaled_temp = np.array(
-                                        Image.fromarray(cropped_temp).resize(
-                                            (self.image_size, self.image_size), resample=Image.BILINEAR))
+                                    scaled_temp = np.array( Image.fromarray(cropped_temp).resize(
+                                        (self.image_size, self.image_size), resample=Image.BILINEAR))
 
                                     nrof_successfully_aligned += 1
                                     imageio.imsave(
