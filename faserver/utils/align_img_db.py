@@ -6,10 +6,6 @@ from PIL import Image
 from ..utils import facenet
 from ..utils import detect_face
 
-# Set allow_pickle=True
-np_load_old = np.load
-np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
-
 
 class AlignImgDB:
     def __init__(self, datadir, output_dir_path, mtcnn_model_dir):

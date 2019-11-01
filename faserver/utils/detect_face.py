@@ -84,6 +84,7 @@ class Network(object):
         '''
         data_dict = np.load(
             data_path,
+            allow_pickle=True,
             encoding='latin1').item()  # pylint: disable=no-member
 
         for op_name in data_dict:
