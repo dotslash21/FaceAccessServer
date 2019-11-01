@@ -1,8 +1,16 @@
 import hashlib
-from .. import app
+from .. import app, db
 from ..models import Camera
-from ..extensions import db
 from ..utils.face_id import FaceIdentifier
+
+
+# Initialize the FaceIdentifier class
+face_identifier = FaceIdentifier(
+    app.config['ALIGNED_IMG_DB'],
+    app.config['MTCNN_MODEL_DIR'],
+    app.config['FACENET_PRETRAINED_MODEL_PATH'],
+    app.config['SVC_CLASSIFIER_SAVE_PATH']
+)
 
 
 def getToken(string):
@@ -26,19 +34,11 @@ def add_camera_entry(camera_name, camera_serial_num, camera_token):
 
 
 def face_recognition(frame):
-    # Initialize the FaceIdentifier class
-    face_id = FaceIdentifier(
-        app.config['ALIGNED_IMG_DB'],
-        app.config['MTCNN_MODEL_DIR'],
-        app.config['FACENET_PRETRAINED_MODEL_PATH'],
-        app.config['SVC_CLASSIFIER_SAVE_PATH']
-    )
-
-    if app.config['SVC_RELOAD']:
-        face_id.load_svc()
+    if app.config['SVC_RELOAD'] == True:
+        face_identifier.load_svc()
         app.config['SVC_RELOAD'] = False
 
-    id_result = face_id.identify(frame)
+    id_result = face_identifier.identify(frame)
 
     # Catch any errors in identification
     if not isinstance(id_result, type(int())):

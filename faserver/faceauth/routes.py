@@ -39,11 +39,17 @@ def camera_register():
         return jsonify(response_data)
 
 
+# Keeping the Debug codes until I am satisfied of
+# the stability of the following code.
+# Will be removed before merging with master
 @mod.route("/face-auth", methods=['POST'])
 def face_auth():
     if request.method == 'POST':
         encoded_img_list = request.json["imageList"]
         id_dict = {}
+
+        # DEBUG
+        imageCount = 0
 
         for encoded_image in encoded_img_list:
             # Get rid of the meta info
@@ -54,26 +60,38 @@ def face_auth():
 
             frame = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
+            # DEBUG
+            print()
+            print("Image Number:", imageCount + 1)
+            imageCount += 1
+
             # Shape the image for consistency
             print("[INFO] Reshaping image... ", end="")
             h, w = frame.shape[0:2]
             maxDim = max([h, w])
-            extraPadding = 0 if maxDim > 2000 else 2000 - maxDim
+            extraPadding = 50
             dh = (maxDim - h) // 2 + extraPadding
             dw = (maxDim - w) // 2 + extraPadding
             frame = cv2.copyMakeBorder(frame.copy(), dh, dh, dw, dw, cv2.BORDER_CONSTANT, value=[0, 0, 0])
             print("Reshaping done!")
             print("[INFO] Resultant frame shape:", frame.shape)
 
+            #DEBUG
+            # cv2.imshow("frame" + str(imageCount), frame)
+
             result = face_recognition(frame)
 
+
             if result['status'] == 'PASS':
+                # DEBUG
+                print("[DEBUG] Individual Face Id result -- ID: {0} PROBABILITY: {1}".format(result['id'], result['probability']))
+                
                 id = result['id']
                 probability = result['probability']
 
                 if id in id_dict:
-                    id_dict['id']['probability_sum'] += probability
-                    id_dict['id']['count'] += 1
+                    id_dict[id]['probability_sum'] += probability
+                    id_dict[id]['count'] += 1
                 else:
                     id_dict[id] = {
                         'name': id.replace('_', " "),
@@ -97,6 +115,9 @@ def face_auth():
                 'status': 'FAIL',
                 'message': 'Oops! Something went wrong... :/'
             })
+
+        # DEBUG
+        print("[DEBUG] Final results -- ID: {0} NAME: {1} PROBABILITY: {2}".format(finalId, finalName, finalProbability))
 
         return jsonify({
             'status': 'PASS',
