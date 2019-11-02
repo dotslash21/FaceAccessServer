@@ -35,7 +35,7 @@ I strongly suggest to make a virtual environment and then run this project. I've
 
 1. Make sure you have git installed. Go to [https://git-scm.com/](https://git-scm.com/) to install it.
 2. Open the terminal.
-3. Type in "git clone https://github.com/dotslash21/realtime_face_identification.git" to clone this repository.
+3. Type in "git clone https://github.com/dotslash21/FaceAccessServer.git" to clone this repository.
 4. Type in "pip install -r requirements.txt" to install the required packages.
 5. Put your labelled images in img_db folder.
 6. Run the align_face.py file using "python align_face.py" command.
