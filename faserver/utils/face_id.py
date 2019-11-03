@@ -170,12 +170,8 @@ class FaceIdentifier:
                 print('[ERROR]', e)
                 return 3
 
-            if best_class_probabilities[0] > 0.7:
-                return (self.faceIds[best_class_indices[0]],
-                        bb, best_class_probabilities[0])
-            else:
-                print('[AUTH_ERROR] ACCESS DENIED!')
-                return 4
+            return (self.faceIds[best_class_indices[0]],
+                    bb, best_class_probabilities[0])
 
         else:
             print('[INFO] No detected face in the threshold vicinity!')
