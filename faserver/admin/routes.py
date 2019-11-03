@@ -21,8 +21,7 @@ def add_user():
 
         try:
             if len(uploaded_files) != 10:
-                raise Exception(
-                    '[ERROR] Correct number of files not received!')
+                return '[ERROR] Number of images should be 10!'
 
             add_user_entry(first_name, last_name)
 
@@ -50,8 +49,7 @@ def edit_user():
 
         try:
             if len(uploaded_files) != 10:
-                raise Exception(
-                    '[ERROR] Correct number of files not received!')
+                return '[ERROR] Number of images should 10!'
 
             edit_user_entry(id, first_name, last_name)
 
