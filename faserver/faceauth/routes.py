@@ -103,14 +103,16 @@ def face_auth():
         finalId = None
         finalName = None
         finalProbability = 0
+        maxCount = 0
         for key, value in id_dict.items():
-            if value['probability_sum'] / value['count'] > finalProbability:
+            if value['count'] > maxCount:
                 finalProbability = value['probability_sum'] / value['count']
                 finalName = value['name']
                 finalId = key
+                maxCount = value['count']
 
         # Sanity check
-        if not finalId or not finalName or not finalProbability:
+        if finalId == None or finalName == None or finalProbability == 0:
             return jsonify({
                 'status': 'FAIL',
                 'message': 'Oops! Something went wrong... :/'
