@@ -1,8 +1,7 @@
 import os
 import sys
 import shutil
-from .. import app
-from ..extensions import db
+from .. import app, db
 from ..models import User
 from ..utils.train_svc import TrainSVC
 from ..utils.align_img_db import AlignImgDB
