@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 import tensorflow as tf
 from sklearn.svm import SVC
+from sklearn.multiclass import OneVsRestClassifier
 from ..utils import detect_face, facenet
 
 
@@ -67,7 +68,7 @@ class TrainSVC:
 
                 # Train the classifier
                 print('Training classifier...')
-                model = SVC(kernel='linear', probability=True)
+                model = OneVsRestClassifier(SVC(kernel='linear', probability=True))
                 model.fit(self.embedding_arr, self.labels)
 
                 # Create the classname list
