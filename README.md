@@ -35,16 +35,14 @@ I strongly suggest to make a virtual environment and then run this project. I've
 
 1. Make sure you have git installed. Go to [https://git-scm.com/](https://git-scm.com/) to install it.
 2. Open the terminal.
-3. Type in "git clone https://github.com/dotslash21/realtime_face_identification.git" to clone this repository.
+3. Type in "git clone https://github.com/dotslash21/FaceAccessServer" to clone this repository.
 4. Type in "pip install -r requirements.txt" to install the required packages.
-5. Put your labelled images in img_db folder.
-6. Run the align_face.py file using "python align_face.py" command.
-7. Run the train_classifier.py using "python train_classifier.py" command.
-8. Finally run the app.py with the required arguments. (e.g.- python app.py -i localhost -o 8080)
+5. Download the pretrained model file form [here](https://drive.google.com/file/d/1EXPBSXwTaqrSC0OhUdXNmKSh9qJUQ55-/view) and place the zip contents under `/faserver/utils/pretrained_model/`.
+6. Finally run the app.py with the required arguments. (e.g.- python app.py -i 127.0.0.1 -o 8080)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
