@@ -71,5 +71,4 @@ venv.bak/
 
 # Models
 bounding_boxes_*.txt
-faserver/database/*
 faserver/utils/svc_classifier/*
