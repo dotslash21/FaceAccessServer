@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 BASE_PATH = sys.path[0]
 SQLALCHEMY_DATABASE_URI = "sqlite:///" + \
-    BASE_PATH + "/faserver/database/users.db"
+    BASE_PATH + "/database/database.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
 db = SQLAlchemy(app)
